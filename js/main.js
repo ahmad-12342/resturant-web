@@ -5,8 +5,15 @@
 'use strict';
 
 /* ─────────────────────────────────
-   1. PRELOADER
+   1. PRELOADER & SMOOTH SCROLL (LENIS)
    ───────────────────────────────── */
+const lenis = new Lenis();
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
 window.addEventListener('load', () => {
   setTimeout(() => {
     const preloader = document.getElementById('preloader');
@@ -15,7 +22,55 @@ window.addEventListener('load', () => {
       setTimeout(() => preloader.remove(), 900);
     }
   }, 2400);
+
+  // 1a. LIVE STATUS LOGIC
+  updateRestaurantStatus();
 });
+
+/* ─────────────────────────────────
+   1b. RESTAURANT STATUS
+   ───────────────────────────────── */
+function updateRestaurantStatus() {
+  const statusPulse = document.getElementById('status-pulse');
+  const statusText = document.getElementById('status-text');
+  if (!statusPulse || !statusText) return;
+
+  const now = new Date();
+  const day = now.getDay(); // 0 is Sunday, 1 is Monday...
+  const hour = now.getHours();
+
+  // Closed on Mondays (1)
+  // Open Tue-Sun (2-0), 6 PM (18) to 11 PM (23)
+  const isOpen = day !== 1 && hour >= 18 && hour < 23;
+
+  if (isOpen) {
+    statusPulse.className = 'w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]';
+    statusText.textContent = 'Open for Dinner';
+  } else {
+    statusPulse.className = 'w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]';
+    statusText.textContent = 'Closed · Opens at 6 PM';
+  }
+}
+
+/* ─────────────────────────────────
+   1c. BACKGROUND MUSIC
+   ───────────────────────────────── */
+const audioBtn = document.getElementById('audio-toggle');
+const bgMusic = document.getElementById('bg-music');
+let isPlaying = false;
+
+if (audioBtn && bgMusic) {
+  audioBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      bgMusic.pause();
+      audioBtn.querySelector('i').className = 'fa-solid fa-music';
+    } else {
+      bgMusic.play();
+      audioBtn.querySelector('i').className = 'fa-solid fa-volume-high';
+    }
+    isPlaying = !isPlaying;
+  });
+}
 
 /* ─────────────────────────────────
    2. CUSTOM CURSOR
