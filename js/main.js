@@ -4,6 +4,8 @@
 
 'use strict';
 
+import { db, collection, addDoc } from './firebase-config.js';
+
 /* ─────────────────────────────────
    1. PRELOADER
    ───────────────────────────────── */
@@ -523,12 +525,21 @@ if (reservationForm) {
 
     console.log('Reservation submitted:', formData);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      // Save to Firestore
+      await addDoc(collection(db, 'reservations'), formData);
 
-    reservationForm.style.display = 'none';
-    resSuccess.classList.remove('hidden');
-    resSuccess.style.animation = 'slideUp 0.5s ease forwards';
+      reservationForm.style.display = 'none';
+      resSuccess.classList.remove('hidden');
+      resSuccess.style.animation = 'slideUp 0.5s ease forwards';
+    } catch (error) {
+      console.error('Error adding reservation: ', error);
+      alert('Something went wrong. Please try again.');
+      btn.disabled = false;
+      resBtnText.textContent = 'Confirm Reservation';
+      resBtnIcon.className = 'fa-solid fa-arrow-right';
+      return;
+    }
 
     // Reset after 8 seconds
     setTimeout(() => {
@@ -570,12 +581,21 @@ if (contactForm) {
 
     console.log('Contact message submitted:', formData);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      // Save to Firestore
+      await addDoc(collection(db, 'contacts'), formData);
 
-    contactForm.style.display = 'none';
-    cfSuccess.classList.remove('hidden');
-    cfSuccess.style.animation = 'slideUp 0.5s ease forwards';
+      contactForm.style.display = 'none';
+      cfSuccess.classList.remove('hidden');
+      cfSuccess.style.animation = 'slideUp 0.5s ease forwards';
+    } catch (error) {
+      console.error('Error adding contact message: ', error);
+      alert('Something went wrong. Please try again.');
+      btn.disabled = false;
+      cfBtnText.textContent = 'Send Message';
+      cfBtnIcon.className = 'fa-solid fa-paper-plane';
+      return;
+    }
 
     // Reset after 8 seconds
     setTimeout(() => {
@@ -605,10 +625,19 @@ if (newsletterForm) {
     btn.disabled = true;
 
     console.log('Newsletter subscription:', email);
-    await new Promise(resolve => setTimeout(resolve, 1200));
 
-    newsletterForm.style.display = 'none';
-    nlSuccess.classList.remove('hidden');
+    try {
+      await addDoc(collection(db, 'newsletter'), {
+        email: email,
+        timestamp: new Date().toISOString()
+      });
+      newsletterForm.style.display = 'none';
+      nlSuccess.classList.remove('hidden');
+    } catch (error) {
+      console.error('Error subscribing to newsletter: ', error);
+      btn.textContent = 'ERROR';
+      btn.disabled = false;
+    }
   });
 }
 
