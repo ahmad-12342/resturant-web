@@ -746,7 +746,7 @@ if (loginForm) {
 
     // Loading State
     submitBtn.disabled = true;
-    loginBtnText.textContent = 'AUTHENTICATING...';
+    loginBtnText.textContent = 'LOGGING IN...';
     loginBtnIcon.className = 'fa-solid fa-spinner fa-spin';
     loginError.classList.add('hidden');
 
@@ -764,8 +764,8 @@ if (loginForm) {
       console.error('Login Error:', error);
       loginError.classList.remove('hidden');
       submitBtn.disabled = false;
-      loginBtnText.textContent = 'AUTHENTICATE';
-      loginBtnIcon.className = 'fa-solid fa-key';
+      loginBtnText.textContent = 'LOGIN';
+      loginBtnIcon.className = 'fa-solid fa-arrow-right-to-bracket';
     }
   });
 }
