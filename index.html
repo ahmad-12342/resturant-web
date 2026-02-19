@@ -44,6 +44,17 @@
     <div id="scroll-progress"
         class="fixed top-0 left-0 h-[2px] bg-gold z-[1000] w-0 transition-all duration-100 ease-out"></div>
 
+    <!-- ===== FLOATING SOCIAL BAR ===== -->
+    <div
+        class="fixed left-6 bottom-24 z-[150] flex flex-col gap-6 items-center hidden lg:flex after:content-[''] after:w-[1px] after:h-20 after:bg-gold/30 after:mt-4">
+        <a href="#" class="text-gold/50 hover:text-gold transition-colors duration-300"><i
+                class="fa-brands fa-instagram text-lg"></i></a>
+        <a href="#" class="text-gold/50 hover:text-gold transition-colors duration-300"><i
+                class="fa-brands fa-facebook-f text-lg"></i></a>
+        <a href="#" class="text-gold/50 hover:text-gold transition-colors duration-300"><i
+                class="fa-brands fa-twitter text-lg"></i></a>
+    </div>
+
     <!-- ===== FLOATING BOOK SIDEBAR ===== -->
     <a href="#reservation"
         class="fixed right-0 top-1/2 -rotate-90 origin-right translate-x-0 -translate-y-1/2 z-[150] bg-gold text-dark px-8 py-3 font-sans text-[10px] font-bold tracking-[0.3em] uppercase hover:bg-white transition-all duration-500 hidden lg:block">
@@ -105,9 +116,15 @@
             </ul>
 
             <!-- Reserve & Login -->
-            <div class="hidden md:flex items-center gap-4">
+            <div class="hidden md:flex items-center gap-6">
+                <div
+                    class="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold border-r border-gold/20 pr-6">
+                    <button class="text-gold hover:text-white transition-colors cursor-none">EN</button>
+                    <span class="text-gold/20">|</span>
+                    <button class="text-gold/40 hover:text-white transition-colors cursor-none">FR</button>
+                </div>
                 <button
-                    class="text-gold text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors">VIP
+                    class="text-gold text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors cursor-none">VIP
                     Login</button>
                 <a href="#reservation"
                     class="inline-flex items-center gap-2 border border-gold text-gold px-6 py-2.5 text-sm tracking-widest uppercase font-sans hover:bg-gold hover:text-dark transition-all duration-300">

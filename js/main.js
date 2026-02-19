@@ -130,12 +130,14 @@ if (audioBtn && bgMusic) {
 }
 
 /* ─────────────────────────────────
-   2. CUSTOM CURSOR & PROGRESS
+   2. CUSTOM CURSOR & ELITE EFFECTS
    ───────────────────────────────── */
 const cursor = document.getElementById('cursor');
 const cursorFollower = document.getElementById('cursor-follower');
 const followerText = cursorFollower ? cursorFollower.querySelector('span') : null;
 const progressBar = document.getElementById('scroll-progress');
+const heroTitle = document.querySelector('.hero-title');
+const heroSubtitle = document.querySelector('.hero-subtitle');
 
 if (cursor && cursorFollower) {
   let mouseX = 0, mouseY = 0;
@@ -146,6 +148,14 @@ if (cursor && cursorFollower) {
     mouseY = e.clientY;
     cursor.style.left = mouseX + 'px';
     cursor.style.top = mouseY + 'px';
+
+    // 2a. PARALLAX HERO TEXT
+    if (heroTitle && heroSubtitle) {
+      const xPos = (window.innerWidth / 2 - mouseX) / 50;
+      const yPos = (window.innerHeight / 2 - mouseY) / 50;
+      heroTitle.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+      heroSubtitle.style.transform = `translate3d(${xPos * 0.5}px, ${yPos * 0.5}px, 0)`;
+    }
   });
 
   const animateCursor = () => {
@@ -165,8 +175,9 @@ if (cursor && cursorFollower) {
     if (progressBar) progressBar.style.width = scrolled + "%";
   });
 
-  // Hover effect on interactive elements
+  // 2b. MAGNETIC BUTTONS & HOVER EFFECTS
   const hoverEls = document.querySelectorAll('a, button, .menu-card, .gallery-item, .chef-card, .wine-card');
+
   hoverEls.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.classList.add('hover');
@@ -188,11 +199,24 @@ if (cursor && cursorFollower) {
       cursorFollower.style.mixBlendMode = 'difference';
       if (followerText) followerText.style.opacity = '0';
 
-      // Reset Tilt
+      // Reset Tilt/Magnetic
       if (el.classList.contains('gallery-item') || el.classList.contains('menu-card')) {
         el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
       }
+      if (el.tagName === 'BUTTON' || el.classList.contains('btn-primary')) {
+        el.style.transform = `translate3d(0, 0, 0)`;
+      }
     });
+
+    // MAGNETIC EFFECT for Buttons
+    if (el.tagName === 'BUTTON' || el.classList.contains('btn-primary') || el.classList.contains('btn-secondary')) {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        el.style.transform = `translate3d(${x * 0.3}px, ${y * 0.3}px, 0)`;
+      });
+    }
 
     // 3D TILT LOGIC
     if (el.classList.contains('gallery-item') || el.classList.contains('menu-card')) {
