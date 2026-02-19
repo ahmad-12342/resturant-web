@@ -7,6 +7,7 @@
     <meta name="description"
         content="La Maison – A luxury fine dining restaurant offering an exquisite culinary experience with world-class cuisine, elegant ambiance, and impeccable service." />
     <title>La Maison | Fine Dining Restaurant</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -72,7 +73,8 @@
 
     <!-- ===== PRELOADER ===== -->
     <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-dark">
-        <div class="preloader-logo font-serif text-5xl text-gold mb-6 tracking-widest">La Maison</div>
+        <img src="img/logo.svg" alt="La Maison Logo" class="w-64 mb-6 opacity-0 animate-pulse"
+            style="animation: fadeIn 2s forwards">
         <div class="preloader-line">
             <div class="preloader-line-fill"></div>
         </div>
@@ -91,9 +93,8 @@
         <div class="flex items-center justify-between max-w-7xl mx-auto">
             <!-- Logo -->
             <div class="flex flex-col">
-                <a href="#home"
-                    class="font-serif text-3xl text-gold tracking-widest hover:text-gold-light transition-colors">
-                    La Maison
+                <a href="#home" class="transition-opacity hover:opacity-80">
+                    <img src="img/logo.svg" alt="La Maison Logo" class="h-10 md:h-12 w-auto">
                 </a>
                 <!-- LIVE STATUS INDICATOR -->
                 <div class="flex items-center gap-2 mt-1">

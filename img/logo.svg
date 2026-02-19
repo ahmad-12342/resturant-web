@@ -1,0 +1,13 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background is transparent -->
+    <style>
+        .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 32px; fill: #C9A84C; letter-spacing: 4px; uppercase: true; }
+        .logo-icon { fill: none; stroke: #C9A84C; stroke-width: 1.5; }
+    </style>
+    <!-- Stylized House/M Icon -->
+    <path class="logo-icon" d="M10 40 L30 20 L50 40 M20 30 L20 45 L40 45 L40 30" />
+    <path class="logo-icon" d="M30 15 L55 35 L55 50 L5 50 L5 35 Z" opacity="0.5" />
+    
+    <!-- Text -->
+    <text x="70" y="42" class="logo-text">LA MAISON</text>
+</svg>
