@@ -740,7 +740,7 @@ if (loginClose && loginModal) {
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('login-email').value;
+    const email = document.getElementById('login-email').value.trim().toLowerCase();
     const password = document.getElementById('login-password').value;
     const submitBtn = document.getElementById('login-submit-btn');
 
