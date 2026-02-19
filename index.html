@@ -94,7 +94,7 @@
             </div>
 
             <!-- Desktop Nav Links -->
-            <ul class="hidden md:flex items-center gap-10">
+            <ul class="hidden lg:flex items-center gap-10">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#chefs" class="nav-link">Chefs</a></li>
@@ -104,11 +104,16 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
 
-            <!-- Reserve Button -->
-            <a href="#reservation"
-                class="hidden md:inline-flex items-center gap-2 border border-gold text-gold px-6 py-2.5 text-sm tracking-widest uppercase font-sans hover:bg-gold hover:text-dark transition-all duration-300">
-                Reserve a Table
-            </a>
+            <!-- Reserve & Login -->
+            <div class="hidden md:flex items-center gap-4">
+                <button
+                    class="text-gold text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors">VIP
+                    Login</button>
+                <a href="#reservation"
+                    class="inline-flex items-center gap-2 border border-gold text-gold px-6 py-2.5 text-sm tracking-widest uppercase font-sans hover:bg-gold hover:text-dark transition-all duration-300">
+                    Reserve
+                </a>
+            </div>
 
             <!-- Hamburger -->
             <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 z-[200]" aria-label="Toggle Menu">
@@ -144,6 +149,7 @@
                     src="https://assets.mixkit.co/videos/preview/mixkit-pouring-red-wine-into-a-glass-in-slow-motion-4252-large.mp4"
                     type="video/mp4">
             </video>
+            <canvas id="hero-particles" class="absolute inset-0 z-[1] pointer-events-none opacity-30"></canvas>
             <div class="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/40 to-dark"></div>
         </div>
 
