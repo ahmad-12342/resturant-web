@@ -118,19 +118,34 @@
 
             <!-- Reserve & Login -->
             <div class="hidden md:flex items-center gap-6">
-                <div
-                    class="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold border-r border-gold/20 pr-6">
-                    <button class="text-gold hover:text-white transition-colors cursor-none">EN</button>
-                    <span class="text-gold/20">|</span>
-                    <button class="text-gold/40 hover:text-white transition-colors cursor-none">FR</button>
+                <!-- User Profile (Hidden by default) -->
+                <div id="user-profile" class="hidden items-center gap-4 border-l border-gold/20 pl-6">
+                    <div class="text-right">
+                        <p id="user-display-name" class="text-[10px] text-white font-bold tracking-widest uppercase">
+                        </p>
+                        <button id="logout-btn"
+                            class="text-[8px] text-gold hover:text-white transition-colors uppercase tracking-[0.2em]">Sign
+                            Out</button>
+                    </div>
+                    <img id="user-photo" src="" alt="Profile"
+                        class="w-10 h-10 rounded-full border border-gold/50 object-cover">
                 </div>
-                <button id="login-open"
-                    class="text-gold text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors cursor-none">VIP
-                    Login</button>
-                <a href="#reservation"
-                    class="inline-flex items-center gap-2 border border-gold text-gold px-6 py-2.5 text-sm tracking-widest uppercase font-sans hover:bg-gold hover:text-dark transition-all duration-300">
-                    Reserve
-                </a>
+
+                <div id="auth-buttons" class="flex items-center gap-6">
+                    <div
+                        class="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold border-r border-gold/20 pr-6">
+                        <button class="text-gold hover:text-white transition-colors cursor-none">EN</button>
+                        <span class="text-gold/20">|</span>
+                        <button class="text-gold/40 hover:text-white transition-colors cursor-none">FR</button>
+                    </div>
+                    <button id="login-open"
+                        class="text-gold text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors cursor-none">VIP
+                        Login</button>
+                    <a href="#reservation"
+                        class="inline-flex items-center gap-2 border border-gold text-gold px-6 py-2.5 text-sm tracking-widest uppercase font-sans hover:bg-gold hover:text-dark transition-all duration-300">
+                        Reserve
+                    </a>
+                </div>
             </div>
 
             <!-- Hamburger -->
@@ -864,6 +879,21 @@
                     class="w-full bg-gold text-dark py-4 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-white transition-all duration-500 mt-4 flex items-center justify-center gap-2">
                     <span id="login-btn-text">Login</span>
                     <i id="login-btn-icon" class="fa-solid fa-arrow-right-to-bracket"></i>
+                </button>
+
+                <!-- Google Sign In -->
+                <div class="relative flex items-center justify-center py-4">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-white/10"></div>
+                    </div>
+                    <span class="relative bg-dark-800 px-4 text-[8px] text-gray-500 uppercase tracking-widest">Or
+                        continue with</span>
+                </div>
+
+                <button type="button" id="google-login-btn"
+                    class="w-full bg-white/5 border border-white/10 text-white py-4 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-white hover:text-dark transition-all duration-500 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-google text-lg"></i>
+                    <span>Google</span>
                 </button>
                 <div id="login-error"
                     class="hidden text-red-500 text-[10px] tracking-widest text-center mt-4 uppercase"></div>

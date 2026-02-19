@@ -2,9 +2,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
+    // ... existing config
     apiKey: "AIzaSyAIkdWm6jPAb92heSbSwpB9pWR3gYW15-A",
     authDomain: "resturant-web-f16f3.firebaseapp.com",
     projectId: "resturant-web-f16f3",
@@ -19,5 +20,9 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
-export { db, collection, addDoc, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword };
+// Ensure user stays logged in
+setPersistence(auth, browserLocalPersistence);
+
+export { db, collection, addDoc, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, googleProvider, signInWithPopup, onAuthStateChanged };

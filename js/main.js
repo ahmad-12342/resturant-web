@@ -4,7 +4,7 @@
 
 'use strict';
 
-import { db, collection, addDoc, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from './firebase-config.js';
+import { db, collection, addDoc, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, googleProvider, signInWithPopup, onAuthStateChanged } from './firebase-config.js';
 
 /* ─────────────────────────────────
    1. PRELOADER
@@ -720,8 +720,66 @@ const loginBtnText = document.getElementById('login-btn-text');
 const loginBtnIcon = document.getElementById('login-btn-icon');
 const authToggleBtn = document.getElementById('auth-toggle-btn');
 const authToggleText = document.getElementById('auth-toggle-text');
+const googleLoginBtn = document.getElementById('google-login-btn');
+
+// UI Elements for Auth State
+const authButtons = document.getElementById('auth-buttons');
+const userProfile = document.getElementById('user-profile');
+const userPhoto = document.getElementById('user-photo');
+const userDisplayName = document.getElementById('user-display-name');
+const logoutBtn = document.getElementById('logout-btn');
 
 let isLoginMode = true;
+
+// 1. Auth State Listener
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in
+    if (authButtons) authButtons.classList.add('hidden');
+    if (userProfile) userProfile.classList.remove('hidden');
+    if (userProfile) userProfile.classList.add('flex');
+
+    if (userDisplayName) userDisplayName.textContent = user.displayName || user.email.split('@')[0];
+    if (userPhoto) {
+      userPhoto.src = user.photoURL || `https://ui-avatars.com/api/?name=${user.email}&background=C9A84C&color=0D0D0D`;
+    }
+
+    if (loginModal) {
+      loginModal.classList.add('hidden');
+      loginModal.classList.remove('flex');
+    }
+    document.body.style.overflow = '';
+  } else {
+    // User is signed out
+    if (authButtons) authButtons.classList.remove('hidden');
+    if (userProfile) userProfile.classList.add('hidden');
+    if (userProfile) userProfile.classList.remove('flex');
+  }
+});
+
+// 2. Google Login
+if (googleLoginBtn) {
+  googleLoginBtn.addEventListener('click', async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error('Google Auth Error:', error);
+      if (loginError) {
+        loginError.textContent = 'GOOGLE SIGN-IN FAILED';
+        loginError.classList.remove('hidden');
+      }
+    }
+  });
+}
+
+// 3. Logout
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    auth.signOut().then(() => {
+      window.location.reload();
+    });
+  });
+}
 
 if (authToggleBtn) {
   authToggleBtn.addEventListener('click', () => {
@@ -771,14 +829,6 @@ if (loginForm) {
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
       }
-
-      loginBtnText.textContent = 'SUCCESS';
-      loginBtnIcon.className = 'fa-solid fa-check';
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-
     } catch (error) {
       console.error('Auth Error:', error);
       let errorMessage = 'ERROR OCCURRED';
