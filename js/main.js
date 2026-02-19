@@ -7,7 +7,14 @@
 /* ─────────────────────────────────
    1. PRELOADER & SMOOTH SCROLL (LENIS)
    ───────────────────────────────── */
-const lenis = new Lenis();
+const lenis = new Lenis({
+  duration: 1.2,
+  lerp: 0.1,
+  wheelMultiplier: 1,
+  smoothWheel: true,
+  infinite: false,
+});
+
 function raf(time) {
   lenis.raf(time);
   requestAnimationFrame(raf);

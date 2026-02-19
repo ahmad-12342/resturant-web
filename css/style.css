@@ -24,7 +24,21 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  min-height: 100vh;
+  /* scroll-behavior: smooth; REMOVED to prevent conflict with Lenis */
+}
+
+/* Lenis Recommended CSS */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
 body {
