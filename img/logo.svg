@@ -1,13 +1,21 @@
-<svg width="240" height="60" viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg">
+<svg width="260" height="60" viewBox="0 0 260 60" xmlns="http://www.w3.org/2000/svg">
+    <!-- SVG sandboxed font fallback -->
     <style>
-        .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 28px; fill: #C9A84C; letter-spacing: 3px; font-weight: 300; text-transform: uppercase; }
-        .logo-icon { fill: none; stroke: #C9A84C; stroke-width: 1.2; }
+        .logo-text { 
+            font-family: 'Times New Roman', serif; 
+            font-size: 26px; 
+            fill: #C9A84C; 
+            letter-spacing: 5px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+        }
+        .logo-icon { fill: none; stroke: #C9A84C; stroke-width: 1.5; }
         .crown { fill: #C9A84C; }
     </style>
     <!-- Royal Diamond/Crown Icon -->
     <path class="crown" d="M15 45 L10 35 L18 38 L25 25 L32 38 L40 35 L35 45 Z" />
     <path class="logo-icon" d="M25 20 L45 40 L45 55 L5 55 L5 40 Z" opacity="0.3" />
     
-    <!-- Text -->
-    <text x="60" y="42" class="logo-text">ROYAL BITES</text>
+    <!-- Text: ROYAL BITES -->
+    <text x="65" y="42" class="logo-text">ROYAL BITES</text>
 </svg>
