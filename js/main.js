@@ -1,5 +1,5 @@
 /* =============================================
-   LA MAISON RESTAURANT — MAIN JAVASCRIPT
+   ROYAL BITES RESTAURANT — MAIN JAVASCRIPT
    ============================================= */
 
 'use strict';
