@@ -124,7 +124,7 @@
                     <span class="text-gold/20">|</span>
                     <button class="text-gold/40 hover:text-white transition-colors cursor-none">FR</button>
                 </div>
-                <button
+                <button id="login-open"
                     class="text-gold text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors cursor-none">VIP
                     Login</button>
                 <a href="#reservation"
@@ -835,6 +835,40 @@
             class="absolute top-6 right-6 text-white text-3xl hover:text-gold transition-colors"><i
                 class="fa-solid fa-xmark"></i></button>
         <img id="lightbox-img" src="" alt="Gallery Image" class="max-w-[90vw] max-h-[90vh] object-contain" />
+    </div>
+
+    <!-- ===== VIP LOGIN MODAL ===== -->
+    <div id="login-modal"
+        class="fixed inset-0 bg-black/90 backdrop-blur-md z-[600] hidden items-center justify-center p-6">
+        <div class="w-full max-w-md bg-dark-800 border border-gold/20 p-8 md:p-12 relative">
+            <button id="login-close" class="absolute top-4 right-4 text-gold/50 hover:text-gold transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="text-center mb-10">
+                <img src="img/logo.svg" alt="Royal Bites" class="h-12 mx-auto mb-4">
+                <h2 class="font-serif text-2xl text-gold tracking-widest">VIP PORTAL</h2>
+                <p class="text-[10px] text-gray-500 tracking-[0.3em] uppercase mt-2">Member Exclusive Access</p>
+            </div>
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Registry Email</label>
+                    <input type="email" id="login-email" required
+                        class="w-full bg-dark border border-white/10 px-4 py-3 text-sm focus:border-gold outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Secret Code</label>
+                    <input type="password" id="login-password" required
+                        class="w-full bg-dark border border-white/10 px-4 py-3 text-sm focus:border-gold outline-none transition-colors">
+                </div>
+                <button type="submit" id="login-submit-btn"
+                    class="w-full bg-gold text-dark py-4 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-white transition-all duration-500 mt-4 flex items-center justify-center gap-2">
+                    <span id="login-btn-text">Authenticate</span>
+                    <i id="login-btn-icon" class="fa-solid fa-key"></i>
+                </button>
+                <div id="login-error" class="hidden text-red-500 text-[10px] tracking-widest text-center mt-4">INVALID
+                    CREDENTIALS</div>
+            </form>
+        </div>
     </div>
 
     <script type="module" src="js/main.js"></script>

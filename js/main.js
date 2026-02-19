@@ -4,7 +4,7 @@
 
 'use strict';
 
-import { db, collection, addDoc } from './firebase-config.js';
+import { db, collection, addDoc, auth, signInWithEmailAndPassword } from './firebase-config.js';
 
 /* ─────────────────────────────────
    1. PRELOADER
@@ -708,5 +708,67 @@ window.addEventListener('scroll', () => {
   }
 });
 
-console.log('%cLa Maison Restaurant', 'color: #C9A84C; font-size: 24px; font-family: serif;');
+/* ─────────────────────────────────
+   18. VIP LOGIN MODAL LOGIC
+   ───────────────────────────────── */
+const loginModal = document.getElementById('login-modal');
+const loginOpen = document.getElementById('login-open');
+const loginClose = document.getElementById('login-close');
+const loginForm = document.getElementById('login-form');
+const loginError = document.getElementById('login-error');
+const loginBtnText = document.getElementById('login-btn-text');
+const loginBtnIcon = document.getElementById('login-btn-icon');
+
+if (loginOpen && loginModal) {
+  loginOpen.addEventListener('click', () => {
+    loginModal.classList.remove('hidden');
+    loginModal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  });
+}
+
+if (loginClose && loginModal) {
+  loginClose.addEventListener('click', () => {
+    loginModal.classList.add('hidden');
+    loginModal.classList.remove('flex');
+    document.body.style.overflow = '';
+    loginError.classList.add('hidden');
+    loginForm.reset();
+  });
+}
+
+if (loginForm) {
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const submitBtn = document.getElementById('login-submit-btn');
+
+    // Loading State
+    submitBtn.disabled = true;
+    loginBtnText.textContent = 'AUTHENTICATING...';
+    loginBtnIcon.className = 'fa-solid fa-spinner fa-spin';
+    loginError.classList.add('hidden');
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      loginBtnText.textContent = 'ACCESS GRANTED';
+      loginBtnIcon.className = 'fa-solid fa-check';
+
+      // Redirect or show success
+      setTimeout(() => {
+        window.location.reload(); // Simple reload for now
+      }, 1500);
+
+    } catch (error) {
+      console.error('Login Error:', error);
+      loginError.classList.remove('hidden');
+      submitBtn.disabled = false;
+      loginBtnText.textContent = 'AUTHENTICATE';
+      loginBtnIcon.className = 'fa-solid fa-key';
+    }
+  });
+}
+
+console.log('%cRoyal Bites Restaurant', 'color: #C9A84C; font-size: 24px; font-family: serif;');
 console.log('%cFine Dining Experience | Code crafted with ❤️', 'color: #888; font-size: 12px;');
