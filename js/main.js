@@ -5,21 +5,8 @@
 'use strict';
 
 /* ─────────────────────────────────
-   1. PRELOADER & SMOOTH SCROLL (LENIS)
+   1. PRELOADER
    ───────────────────────────────── */
-const lenis = new Lenis({
-  duration: 1.2,
-  lerp: 0.1,
-  wheelMultiplier: 1,
-  smoothWheel: true,
-  infinite: false,
-});
-
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
 
 window.addEventListener('load', () => {
   setTimeout(() => {
