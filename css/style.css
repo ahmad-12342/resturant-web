@@ -600,6 +600,41 @@ body {
 }
 
 /* ======================================
+   WINE SECTION
+   ====================================== */
+.wine-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  padding: 2.5rem;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.wine-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.wine-card:hover {
+  border-color: rgba(201, 168, 76, 0.4);
+  background: rgba(201, 168, 76, 0.05);
+  transform: translateY(-5px);
+}
+
+.wine-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* ======================================
    OFFER SECTION
    ====================================== */
 .offer-section {
@@ -611,9 +646,9 @@ body {
    ====================================== */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 280px;
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 250px;
+  gap: 15px;
 }
 
 @media (max-width: 768px) {
@@ -845,41 +880,44 @@ body {
 }
 
 .testimonial-btn {
-  width: 44px;
-  height: 44px;
+  width: 54px;
+  height: 54px;
   border: 1px solid rgba(201, 168, 76, 0.3);
   background: transparent;
   color: var(--gold);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
 }
 
 .testimonial-btn:hover {
   background: var(--gold);
   color: var(--dark);
+  border-color: var(--gold);
+  transform: scale(1.1);
 }
 
 .testimonial-dots {
   display: flex;
-  gap: 8px;
+  gap: 12px;
 }
 
 .testimonial-dot {
-  width: 6px;
-  height: 6px;
-  background: rgba(201, 168, 76, 0.3);
+  width: 8px;
+  height: 8px;
+  background: rgba(201, 168, 76, 0.2);
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .testimonial-dot.active {
   background: var(--gold);
-  width: 24px;
-  border-radius: 3px;
+  width: 28px;
+  border-radius: 10px;
 }
 
 /* ======================================
