@@ -187,7 +187,28 @@ if (cursor && cursorFollower) {
       cursorFollower.style.backgroundColor = 'transparent';
       cursorFollower.style.mixBlendMode = 'difference';
       if (followerText) followerText.style.opacity = '0';
+
+      // Reset Tilt
+      if (el.classList.contains('gallery-item') || el.classList.contains('menu-card')) {
+        el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+      }
     });
+
+    // 3D TILT LOGIC
+    if (el.classList.contains('gallery-item') || el.classList.contains('menu-card')) {
+      el.style.transition = "transform 0.1s ease-out";
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
+
+        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      });
+    }
   });
 }
 

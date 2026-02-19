@@ -23,10 +23,6 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--dark);
   color: #fff;
@@ -34,6 +30,20 @@ body {
   overflow-x: hidden;
   cursor: none;
   /* Hide default cursor */
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 /* Ensure default cursor stays hidden on all elements */
@@ -182,10 +192,10 @@ textarea,
 }
 
 #navbar.scrolled {
-  background: rgba(13, 13, 13, 0.7);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  background: rgba(13, 13, 13, 0.7) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
   padding: 1rem 0;
 }
 
