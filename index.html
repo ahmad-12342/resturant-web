@@ -40,6 +40,10 @@
 
 <body class="bg-dark text-white font-sans overflow-x-hidden">
 
+    <!-- ===== SCROLL PROGRESS BAR ===== -->
+    <div id="scroll-progress"
+        class="fixed top-0 left-0 h-[2px] bg-gold z-[1000] w-0 transition-all duration-100 ease-out"></div>
+
     <!-- ===== AUDIO TOGGLE ===== -->
     <button id="audio-toggle"
         class="fixed bottom-8 left-8 z-[200] w-12 h-12 border border-gold/30 flex items-center justify-center text-gold backdrop-blur-md bg-dark/20 hover:bg-gold hover:text-dark transition-all duration-500">
@@ -60,7 +64,10 @@
 
     <!-- ===== CUSTOM CURSOR ===== -->
     <div id="cursor" class="cursor"></div>
-    <div id="cursor-follower" class="cursor-follower"></div>
+    <div id="cursor-follower" class="cursor-follower flex items-center justify-center">
+        <span
+            class="text-[8px] uppercase tracking-widest text-dark font-bold opacity-0 transition-opacity duration-300">View</span>
+    </div>
 
     <!-- ===== NAVBAR ===== -->
     <nav id="navbar" class="fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-6 px-6 md:px-16">

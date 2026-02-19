@@ -67,10 +67,12 @@ if (audioBtn && bgMusic) {
 }
 
 /* ─────────────────────────────────
-   2. CUSTOM CURSOR
+   2. CUSTOM CURSOR & PROGRESS
    ───────────────────────────────── */
 const cursor = document.getElementById('cursor');
 const cursorFollower = document.getElementById('cursor-follower');
+const followerText = cursorFollower ? cursorFollower.querySelector('span') : null;
+const progressBar = document.getElementById('scroll-progress');
 
 if (cursor && cursorFollower) {
   let mouseX = 0, mouseY = 0;
@@ -92,16 +94,36 @@ if (cursor && cursorFollower) {
   };
   animateCursor();
 
+  // Scroll Progress Tracker
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    if (progressBar) progressBar.style.width = scrolled + "%";
+  });
+
   // Hover effect on interactive elements
-  const hoverEls = document.querySelectorAll('a, button, .menu-card, .gallery-item');
+  const hoverEls = document.querySelectorAll('a, button, .menu-card, .gallery-item, .chef-card, .wine-card');
   hoverEls.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.classList.add('hover');
-      cursorFollower.classList.add('hover');
+      cursorFollower.style.width = '80px';
+      cursorFollower.style.height = '80px';
+      cursorFollower.style.backgroundColor = 'var(--gold)';
+      cursorFollower.style.mixBlendMode = 'normal';
+
+      if (el.classList.contains('gallery-item') || el.classList.contains('menu-card')) {
+        if (followerText) followerText.style.opacity = '1';
+      }
     });
+
     el.addEventListener('mouseleave', () => {
       cursor.classList.remove('hover');
-      cursorFollower.classList.remove('hover');
+      cursorFollower.style.width = '40px';
+      cursorFollower.style.height = '40px';
+      cursorFollower.style.backgroundColor = 'transparent';
+      cursorFollower.style.mixBlendMode = 'difference';
+      if (followerText) followerText.style.opacity = '0';
     });
   });
 }
