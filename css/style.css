@@ -32,6 +32,18 @@ body {
   color: #fff;
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
+  cursor: none;
+  /* Hide default cursor */
+}
+
+/* Ensure default cursor stays hidden on all elements */
+a,
+button,
+input,
+select,
+textarea,
+.cursor-none {
+  cursor: none !important;
 }
 
 /* ─── SCROLLBAR ─── */
