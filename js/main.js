@@ -4,7 +4,7 @@
 
 'use strict';
 
-import { db, collection, addDoc, auth, signInWithEmailAndPassword } from './firebase-config.js';
+import { db, collection, addDoc, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from './firebase-config.js';
 
 /* ─────────────────────────────────
    1. PRELOADER
@@ -709,7 +709,7 @@ window.addEventListener('scroll', () => {
 });
 
 /* ─────────────────────────────────
-   18. VIP LOGIN MODAL LOGIC
+   18. VIP LOGIN / REGISTER MODAL LOGIC
    ───────────────────────────────── */
 const loginModal = document.getElementById('login-modal');
 const loginOpen = document.getElementById('login-open');
@@ -718,6 +718,20 @@ const loginForm = document.getElementById('login-form');
 const loginError = document.getElementById('login-error');
 const loginBtnText = document.getElementById('login-btn-text');
 const loginBtnIcon = document.getElementById('login-btn-icon');
+const authToggleBtn = document.getElementById('auth-toggle-btn');
+const authToggleText = document.getElementById('auth-toggle-text');
+
+let isLoginMode = true;
+
+if (authToggleBtn) {
+  authToggleBtn.addEventListener('click', () => {
+    isLoginMode = !isLoginMode;
+    loginBtnText.textContent = isLoginMode ? 'LOGIN' : 'REGISTER';
+    authToggleText.textContent = isLoginMode ? "Don't have access?" : "Already a member?";
+    authToggleBtn.textContent = isLoginMode ? 'Request Access' : 'Login instead';
+    loginError.classList.add('hidden');
+  });
+}
 
 if (loginOpen && loginModal) {
   loginOpen.addEventListener('click', () => {
@@ -746,42 +760,49 @@ if (loginForm) {
 
     // Loading State
     submitBtn.disabled = true;
-    loginBtnText.textContent = 'LOGGING IN...';
+    const originalBtnText = loginBtnText.textContent;
+    loginBtnText.textContent = isLoginMode ? 'LOGGING IN...' : 'REGISTERING...';
     loginBtnIcon.className = 'fa-solid fa-spinner fa-spin';
     loginError.classList.add('hidden');
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      loginBtnText.textContent = 'ACCESS GRANTED';
+      if (isLoginMode) {
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+      }
+
+      loginBtnText.textContent = 'SUCCESS';
       loginBtnIcon.className = 'fa-solid fa-check';
 
-      // Redirect or show success
       setTimeout(() => {
-        window.location.reload(); // Simple reload for now
+        window.location.reload();
       }, 1500);
 
     } catch (error) {
-      console.error('Login Error:', error);
-      let errorMessage = 'INVALID CREDENTIALS';
+      console.error('Auth Error:', error);
+      let errorMessage = 'ERROR OCCURRED';
 
       if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
         errorMessage = 'INVALID EMAIL OR PASSWORD';
+      } else if (error.code === 'auth/email-already-in-use') {
+        errorMessage = 'EMAIL ALREADY REGISTERED';
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = 'PASSWORD TOO WEAK';
       } else if (error.code === 'auth/invalid-email') {
         errorMessage = 'INVALID EMAIL FORMAT';
-      } else if (error.code === 'auth/too-many-requests') {
-        errorMessage = 'TOO MANY ATTEMPTS. TRY LATER';
       } else {
-        errorMessage = error.message.toUpperCase();
+        errorMessage = error.code.split('/')[1]?.replace(/-/g, ' ').toUpperCase() || 'ERROR';
       }
 
       loginError.textContent = errorMessage;
       loginError.classList.remove('hidden');
       submitBtn.disabled = false;
-      loginBtnText.textContent = 'LOGIN';
+      loginBtnText.textContent = originalBtnText;
       loginBtnIcon.className = 'fa-solid fa-arrow-right-to-bracket';
     }
   });
 }
 
 console.log('%cRoyal Bites Restaurant', 'color: #C9A84C; font-size: 24px; font-family: serif;');
-console.log('%cFine Dining Experience | Code crafted with ❤️', 'color: #888; font-size: 12px;');
+console.log('%cElite Dining | Branding Updated', 'color: #888; font-size: 12px;');
